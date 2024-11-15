@@ -1,19 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Headers\NativesCaller.h" />
-    <ClInclude Include="Headers\Natives.h" />
-    <ClInclude Include="Headers\Enums.h" />
-    <ClInclude Include="Headers\Math.h" />
-    <ClInclude Include="Headers\Structs.h" />
-    <ClInclude Include="Source\Application\Application.h" />
-    <ClInclude Include="Source\InputsManager\InputsManager.h" />
+    <ClCompile Include="Source\Application\Application.cpp">
+      <Filter>Source\Application.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputsManager\InputsManager.cpp">
+      <Filter>Source\InputsManager</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Source\Application\Application.cpp" />
-    <ClCompile Include="Source\InputsManager\InputsManager.cpp" />
+    <ClInclude Include="Headers\Enums.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Structs.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\NativesCaller.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Natives.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Math.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Application\Application.h">
+      <Filter>Source\Application.cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputsManager\InputsManager.h">
+      <Filter>Source\InputsManager</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Includes\RedHook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{9bae5b1a-b434-4fd6-a185-cd3ad473b017}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{e9e497a8-5c4e-406b-95f9-c238b095d05a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{402b8a53-8160-44c1-a8d2-5e71d4bfaba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application.cpp">
+      <UniqueIdentifier>{675af9f1-c3d4-4e4c-8dd4-3fe98087a861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\InputsManager">
+      <UniqueIdentifier>{0b8467f3-c54b-47bc-b713-d2e661c32f48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

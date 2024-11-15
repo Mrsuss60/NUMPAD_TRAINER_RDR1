@@ -24,7 +24,6 @@
 
 #include "Source/InputsManager/InputsManager.h"
 
-
 #include "Source/Application/Application.h"
 
 

@@ -2,7 +2,7 @@
 
 
 
-static BOOL APIENTRY DllMain(HMODULE _Module, DWORD _ReasonForCall, LPVOID _Reserved)
+BOOL APIENTRY DllMain(HMODULE _Module, DWORD _ReasonForCall, LPVOID _Reserved)
 {
     switch (_ReasonForCall)
     {
