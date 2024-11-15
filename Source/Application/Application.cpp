@@ -14,10 +14,10 @@ void Application::Initialize(HMODULE _Module)
     std::cout << "The Script is Up\n"
         << "Numpad 1 = Invincibility\n"
         << "Numpad 2 = Drunk\n"
-        << "Numpad 3 = infinte DeadEye\n";
+        << "Numpad 3 = infinte DeadEyE\n";
 
     InputsManager::Register(); 
-    
+
     ScriptRegister(_Module, []
 
         {
@@ -25,6 +25,7 @@ void Application::Initialize(HMODULE _Module)
             bool Invincible = false;
             bool Drunk = false;
             bool DeadEye = false;
+            bool timeacce = false;
             int PlayerID = 0;
 
             while (true)
@@ -116,7 +117,21 @@ void Application::Initialize(HMODULE _Module)
                     }
                 }
 
-                if (Input::IsKeyJustPressed(KEY_NUMPAD_4))
+                if (Input::IsKeyJustPressed(KEY_NUMPAD_5))
+                {
+                    timeacce = !timeacce;
+                    if (timeacce)
+                    {
+                        SET_TIME_ACCELERATION(5000.0f);
+                        _PRINT_SUBTITLE("Time Acceleration: On", 1.0f, true, 0, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                         SET_TIME_ACCELERATION(30.0f);
+                        _PRINT_SUBTITLE("Time Acceleration: Off", 1.0f, true, 0, 0, 0, 0, 0);
+                    }
+                }
+                if (timeacce)
                 {
                     SET_TIME_ACCELERATION(5000.0f);
                 }
