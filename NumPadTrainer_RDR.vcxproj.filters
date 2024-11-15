@@ -1,74 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Structs.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Enums.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\NativesCaller.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\InputsManager\InputsManager.h">
-      <Filter>Source\InputsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Application\Application.h">
-      <Filter>Source\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="Resources\Includes\RedHook.h">
-      <Filter>Resources\Includes</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Math.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Natives.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Headers\NativesCaller.h" />
+    <ClInclude Include="Headers\Natives.h" />
+    <ClInclude Include="Headers\Enums.h" />
+    <ClInclude Include="Headers\Math.h" />
+    <ClInclude Include="Headers\Structs.h" />
+    <ClInclude Include="Source\Application\Application.h" />
+    <ClInclude Include="Source\InputsManager\InputsManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\InputsManager\InputsManager.cpp">
-      <Filter>Source\InputsManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Application\Application.cpp">
-      <Filter>Source\Application</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{14034f6d-fe60-4066-81ee-70b2b7c05d90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source">
-      <UniqueIdentifier>{952d48f8-7def-406b-96b4-f31c5e593d28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\InputsManager">
-      <UniqueIdentifier>{157dc3e0-009e-484d-ba90-5a1b21e977b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Application">
-      <UniqueIdentifier>{cb2c566f-76f7-49ac-9c18-d2226ca06989}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{b50b1339-7925-4016-915f-b6bcd7355a78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Includes">
-      <UniqueIdentifier>{1d04b0ee-574c-4a22-96b3-cdf460520b1b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Libraries">
-      <UniqueIdentifier>{9930f550-d68d-46ea-81fc-e75856601ff2}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="Resources\Libraries\RedHook.lib">
-      <Filter>Resources\Libraries</Filter>
-    </Library>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Source\Application\Application.cpp" />
+    <ClCompile Include="Source\InputsManager\InputsManager.cpp" />
   </ItemGroup>
 </Project>

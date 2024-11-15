@@ -14,10 +14,10 @@ void Application::Initialize(HMODULE _Module)
     std::cout << "The Script is Up\n"
         << "Numpad 1 = Invincibility\n"
         << "Numpad 2 = Drunk\n"
-        << "Numpad 3 = infinte DeadEyE\n";
+        << "Numpad 3 = infinte DeadEye\n";
 
     InputsManager::Register(); 
-
+    
     ScriptRegister(_Module, []
 
         {
