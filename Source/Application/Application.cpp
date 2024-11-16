@@ -29,14 +29,36 @@ void Application::Initialize(HMODULE _Module)
             bool setLassoTargetDrunk = false;
             bool KillLassoTarget = false;
 
+            _PRINT_HELP(
+                "PRESS F4 FOR CONTROLS\n"
+                "<blue>NUMPAD 1 = INVINCIBLE\n"
+                "<blue>NUMPAD 2 = DRUNK\n"
+                "<blue>NUMPAD 3 = INFINITE DEADEYE\n"
+                "<blue>NUMPAD 5 = TIME ACCELERATION\n"
+                "<blue>NUMPAD 6 = DRUNK LASSO\n"
+                "<blue>NUMPAD 7 = KILL LASSO\n",
+                10.0f, true, 1, 0, 0, 0, 0
+            );
 
             while (true)
             {
                 // controls menu
                 if (Input::IsKeyJustPressed(KEY_F4))
                 {
-                    _PRINT_HELP("PRESS F4 FOR CONTROLS\n NUMPAD 1 = INVINCIBLE\n NUMPAD 2 = DRUNK\n NUMPAD 3 = INFINITE DEADEYE\n  NUMPAD 5 = TIME ACCELERATION\n NUMPAD 6 = DRUNK LASSO\n NUMPAD 7 = KILL LASSO\n", 10.0f, true, 1, 80, 0, 0, 0);
-                }   
+                    _PRINT_HELP(
+                        "PRESS F4 FOR CONTROLS\n"
+                        "<blue>NUMPAD 1 = INVINCIBLE\n"
+                        "<blue>NUMPAD 2 = DRUNK\n"
+                        "<blue>NUMPAD 3 = INFINITE DEADEYE\n"
+                        "<blue>NUMPAD 5 = TIME ACCELERATION\n"
+                        "<blue>NUMPAD 6 = DRUNK LASSO\n"
+                        "<blue>NUMPAD 7 = KILL LASSO\n",
+                        10.0f, true, 1, 0, 0, 0, 0
+                    );
+                
+                }       
+
+
 
                 // Get player actor
                 int PlayerID = 0;
