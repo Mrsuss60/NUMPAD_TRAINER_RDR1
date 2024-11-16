@@ -27,7 +27,6 @@ void Application::Initialize(HMODULE _Module)
 
             // Drunk/kill Lasso variable
             bool setLassoTargetDrunk = false;
-            bool KillLassoTarget = false;
 
             _PRINT_HELP(
                 "PRESS F4 FOR CONTROLS\n"
@@ -58,11 +57,11 @@ void Application::Initialize(HMODULE _Module)
                 
                 }       
 
-
-
                 // Get player actor
                 int PlayerID = 0;
                 Actor playerActor = GET_PLAYER_ACTOR(PlayerID);
+                int AcTor = GET_LASSO_TARGET(playerActor);
+                std::cout << "\r" << "actor id: " << AcTor << "     " << std::flush; // logs actor id 
 
                 //invincibility 
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_1)) {
@@ -87,39 +86,23 @@ void Application::Initialize(HMODULE _Module)
                 // Drunk Lasso
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_6))
                 {
-                        setLassoTargetDrunk = !setLassoTargetDrunk;
-                        if (setLassoTargetDrunk)
-                        {
-                            _PRINT_SUBTITLE("<green>Drunk Lasso: On!", 0.5f, true, 1, 0, 0, 0, 0);
-                        }
-                        else
-                        {
-                            _PRINT_SUBTITLE("<red>Drunk Lasso: Off!", 0.5f, true, 1, 0, 0, 0, 0);
-                        }
-                }
-                if (setLassoTargetDrunk)
-                {
-                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
-                    SET_ACTOR_DRUNK(lassotarget, setLassoTargetDrunk);
+                    Drunk = !Drunk;
+                    SET_ACTOR_DRUNK(AcTor, Drunk);
+                    if (Drunk)
+                    {
+                        _PRINT_SUBTITLE("<green>Drunk: On!", 0.5f, true, 1, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        _PRINT_SUBTITLE("<red>Drunk: Off!", 0.5f, true, 1, 0, 0, 0, 0);
+                    }
                 }
 
                 // Kill Lasso Target
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_7))
                 {
-                    KillLassoTarget = !KillLassoTarget;
-                    if (KillLassoTarget)
-                    {
-                        _PRINT_SUBTITLE("<green>Kill Lasso Target: On!", 0.5f, true, 1, 0, 0, 0, 0);
-                    }
-                    else
-                    {
-                        _PRINT_SUBTITLE("<red>Kill Lasso Target: Off!", 0.5f, true, 1, 0, 0, 0, 0);
-                    }
-                }
-                if (KillLassoTarget)
-                {
-                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
-                    KILL_ACTOR(lassotarget);
+                    KILL_ACTOR(AcTor);
+                        _PRINT_SUBTITLE("<green>Kill Lasso Target", 0.5f, true, 1, 0, 0, 0, 0);
                 }
 
 
@@ -163,7 +146,6 @@ void Application::Initialize(HMODULE _Module)
                     SET_INFINITE_DEADEYE(playerActor, DeadEye);
                 }
 
-
                 // Time Acceleration
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_5))
                 {
@@ -184,10 +166,7 @@ void Application::Initialize(HMODULE _Module)
                     SET_TIME_ACCELERATION(5000.0f);
                 }
 
-
-
                 WAIT(0);
-
 
             }
         });
