@@ -25,36 +25,22 @@ void Application::Initialize(HMODULE _Module)
             bool DeadEye = false;
             bool timeacce = false;
 
+            // Drunk/kill Lasso variable
+            bool setLassoTargetDrunk = false;
+            bool KillLassoTarget = false;
+
 
             while (true)
             {
                 // controls menu
                 if (Input::IsKeyJustPressed(KEY_F4))
                 {
-                    _PRINT_HELP("PRESS F4 FOR CONTROLS\n NUMPAD 1 = INVINCIBLE\n NUMPAD 2 = DRUNK\n NUMPAD 3 = INFINITE DEADEYE\n  NUMPAD 5 = TIME ACCELERATION\n NUMPAD 6 = DRUNK LASSO\n NUMPAD 9 = KILL LASSO\n", 10.0f, true, 1, 80, 0, 0, 0);
+                    _PRINT_HELP("PRESS F4 FOR CONTROLS\n NUMPAD 1 = INVINCIBLE\n NUMPAD 2 = DRUNK\n NUMPAD 3 = INFINITE DEADEYE\n  NUMPAD 5 = TIME ACCELERATION\n NUMPAD 6 = DRUNK LASSO\n NUMPAD 7 = KILL LASSO\n", 10.0f, true, 1, 80, 0, 0, 0);
                 }   
 
-
-
+                // Get player actor
                 int PlayerID = 0;
                 Actor playerActor = GET_PLAYER_ACTOR(PlayerID);
-                int actor = GET_LASSO_TARGET(playerActor);
-                std::cout << "\r" << "actor id: " << actor << "     " << std::flush;
-
-                
-
-
-
-
-
-                if (Input::IsKeyJustReleased(KEY_NUMPAD_9))
-                {
-                    KILL_ACTOR(actor);
-                   
-                }
-
-
-
 
                 //invincibility 
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_1)) {
@@ -76,26 +62,46 @@ void Application::Initialize(HMODULE _Module)
                 }
                 
 
-
-
-
-                //drunk lasso
+                // Drunk Lasso
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_6))
                 {
-                        Drunk = !Drunk;
-                        SET_ACTOR_DRUNK(actor, Drunk);
-                        if (Drunk)
+                        setLassoTargetDrunk = !setLassoTargetDrunk;
+                        if (setLassoTargetDrunk)
                         {
-                            _PRINT_SUBTITLE("<green>Drunk: On!", 0.5f, true, 1, 0, 0, 0, 0);
+                            _PRINT_SUBTITLE("<green>Drunk Lasso: On!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
                         else
                         {
-                            _PRINT_SUBTITLE("<red>Drunk: Off!", 0.5f, true, 1, 0, 0, 0, 0);
+                            _PRINT_SUBTITLE("<red>Drunk Lasso: Off!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
+                }
+                if (setLassoTargetDrunk)
+                {
+                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
+                    SET_ACTOR_DRUNK(lassotarget, setLassoTargetDrunk);
+                }
+
+                // Kill Lasso Target
+                if (Input::IsKeyJustPressed(KEY_NUMPAD_7))
+                {
+                    KillLassoTarget = !KillLassoTarget;
+                    if (KillLassoTarget)
+                    {
+                        _PRINT_SUBTITLE("<green>Kill Lasso Target: On!", 0.5f, true, 1, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        _PRINT_SUBTITLE("<red>Kill Lasso Target: Off!", 0.5f, true, 1, 0, 0, 0, 0);
+                    }
+                }
+                if (KillLassoTarget)
+                {
+                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
+                    KILL_ACTOR(lassotarget);
                 }
 
 
-                //drunk player
+                // Drunk Player
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_2))
                 {
                    if (IS_ACTOR_PLAYER(playerActor))
@@ -114,10 +120,7 @@ void Application::Initialize(HMODULE _Module)
                 }
 
 
-
-
-
-                //deadeye
+                // Deadeye
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_3))
                 {
                     DeadEye = !DeadEye;
@@ -137,10 +140,9 @@ void Application::Initialize(HMODULE _Module)
                 {
                     SET_INFINITE_DEADEYE(playerActor, DeadEye);
                 }
-                //
 
 
-                //time acceleration
+                // Time Acceleration
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_5))
                 {
                     timeacce = !timeacce;
@@ -159,7 +161,8 @@ void Application::Initialize(HMODULE _Module)
                 {
                     SET_TIME_ACCELERATION(5000.0f);
                 }
-                //
+
+
 
                 WAIT(0);
 
