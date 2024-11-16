@@ -19,7 +19,6 @@ void Application::Initialize(HMODULE _Module)
     ScriptRegister(_Module, []
 
         {
-
             bool Invincible = false;
             bool Drunk = false;
             bool DeadEye = false;
@@ -27,6 +26,7 @@ void Application::Initialize(HMODULE _Module)
 
             // Drunk/kill Lasso variable
             bool setLassoTargetDrunk = false;
+            bool KillLassoTarget = false;
 
             _PRINT_HELP(
                 "PRESS F4 FOR CONTROLS\n"
@@ -60,8 +60,6 @@ void Application::Initialize(HMODULE _Module)
                 // Get player actor
                 int PlayerID = 0;
                 Actor playerActor = GET_PLAYER_ACTOR(PlayerID);
-                int AcTor = GET_LASSO_TARGET(playerActor);
-                std::cout << "\r" << "actor id: " << AcTor << "     " << std::flush; // logs actor id 
 
                 //invincibility 
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_1)) {
@@ -72,7 +70,7 @@ void Application::Initialize(HMODULE _Module)
                         if (Invincible) {
                             _PRINT_SUBTITLE("<green>Invincible: On!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
-                        else { 
+                        else {
                             _PRINT_SUBTITLE("<red>Invincible: Off!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
                     }
@@ -86,30 +84,46 @@ void Application::Initialize(HMODULE _Module)
                 // Drunk Lasso
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_6))
                 {
-                    Drunk = !Drunk;
-                    SET_ACTOR_DRUNK(AcTor, Drunk);
-                    if (Drunk)
+                    setLassoTargetDrunk = !setLassoTargetDrunk;
+                    if (setLassoTargetDrunk)
                     {
-                        _PRINT_SUBTITLE("<green>Drunk: On!", 0.5f, true, 1, 0, 0, 0, 0);
+                        _PRINT_SUBTITLE("<green>Drunk Lasso: On!", 0.5f, true, 1, 0, 0, 0, 0);
                     }
                     else
                     {
-                        _PRINT_SUBTITLE("<red>Drunk: Off!", 0.5f, true, 1, 0, 0, 0, 0);
+                        _PRINT_SUBTITLE("<red>Drunk Lasso: Off!", 0.5f, true, 1, 0, 0, 0, 0);
                     }
+                }
+                if (setLassoTargetDrunk)
+                {
+                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
+                    SET_ACTOR_DRUNK(lassotarget, setLassoTargetDrunk);
                 }
 
                 // Kill Lasso Target
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_7))
                 {
-                    KILL_ACTOR(AcTor);
-                        _PRINT_SUBTITLE("<green>Kill Lasso Target", 0.5f, true, 1, 0, 0, 0, 0);
+                    KillLassoTarget = !KillLassoTarget;
+                    if (KillLassoTarget)
+                    {
+                        _PRINT_SUBTITLE("<green>Kill Lasso Target: On!", 0.5f, true, 1, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        _PRINT_SUBTITLE("<red>Kill Lasso Target: Off!", 0.5f, true, 1, 0, 0, 0, 0);
+                    }
+                }
+                if (KillLassoTarget)
+                {
+                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
+                    KILL_ACTOR(lassotarget);
                 }
 
 
                 // Drunk Player
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_2))
                 {
-                   if (IS_ACTOR_PLAYER(playerActor))
+                    if (IS_ACTOR_PLAYER(playerActor))
                     {
                         Drunk = !Drunk;
                         SET_ACTOR_DRUNK(playerActor, Drunk);
@@ -118,7 +132,7 @@ void Application::Initialize(HMODULE _Module)
                             _PRINT_SUBTITLE("<green>Drunk: On!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
                         else
-                        {   
+                        {
                             _PRINT_SUBTITLE("<red>Drunk: Off!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
                     }
