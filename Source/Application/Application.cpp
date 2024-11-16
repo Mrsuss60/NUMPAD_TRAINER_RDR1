@@ -63,14 +63,18 @@ void Application::Initialize(HMODULE _Module)
                         Invincible = !Invincible;
                         SET_ACTOR_INVULNERABILITY(playerActor, Invincible);
                         if (Invincible) {
-                            _PRINT_SUBTITLE("<green>Invincible: On!", 0.5f, true, 0, 0, 0, 0, 0);
+                            _PRINT_SUBTITLE("<green>Invincible: On!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
                         else { 
-                            _PRINT_SUBTITLE("<red>Invincible: Off!", 0.5f, true, 0, 0, 0, 0, 0);
+                            _PRINT_SUBTITLE("<red>Invincible: Off!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
                     }
                 }
-
+                if (Invincible)
+                {
+                    SET_ACTOR_INVULNERABILITY(playerActor, true);
+                }
+                
 
 
 
@@ -82,12 +86,11 @@ void Application::Initialize(HMODULE _Module)
                         SET_ACTOR_DRUNK(actor, Drunk);
                         if (Drunk)
                         {
-                            _PRINT_SUBTITLE("<green>Drunk: On!", 0.5f, true, 0, 0, 0, 0, 0);
+                            _PRINT_SUBTITLE("<green>Drunk: On!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
-                        else if (IS_ACTOR_DRUNK(actor))
+                        else
                         {
-                            SET_ACTOR_DRUNK(actor, false);
-                            _PRINT_SUBTITLE("<red>Drunk: Off!", 0.5f, true, 0, 0, 0, 0, 0);
+                            _PRINT_SUBTITLE("<red>Drunk: Off!", 0.5f, true, 1, 0, 0, 0, 0);
                         }
                 }
 
@@ -97,17 +100,16 @@ void Application::Initialize(HMODULE _Module)
                 {
                    if (IS_ACTOR_PLAYER(playerActor))
                     {
-                    Drunk = !Drunk;
-                    SET_ACTOR_DRUNK(playerActor, Drunk);
-                    if (Drunk)
-                    {
-                        _PRINT_SUBTITLE("<green>Drunk: On!", 0.5f, true, 0, 0, 0, 0, 0);
-                    }
-                    else if(IS_ACTOR_DRUNK(playerActor))
-                    {   
-                        SET_ACTOR_DRUNK(playerActor, false);
-                        _PRINT_SUBTITLE("<red>Drunk: Off!", 0.5f, true, 0, 0, 0, 0, 0);
-                    }
+                        Drunk = !Drunk;
+                        SET_ACTOR_DRUNK(playerActor, Drunk);
+                        if (Drunk)
+                        {
+                            _PRINT_SUBTITLE("<green>Drunk: On!", 0.5f, true, 1, 0, 0, 0, 0);
+                        }
+                        else
+                        {   
+                            _PRINT_SUBTITLE("<red>Drunk: Off!", 0.5f, true, 1, 0, 0, 0, 0);
+                        }
                     }
                 }
 
@@ -124,11 +126,11 @@ void Application::Initialize(HMODULE _Module)
                     //SET_DEADEYE_TIMESCALE(playerActor, 0.5f);
                     if (DeadEye)
                     {
-                        _PRINT_SUBTITLE("<green> Infinite DeadEye : On", 0.5f, true, 0, 0, 0, 0, 0);
+                        _PRINT_SUBTITLE("<green> Infinite DeadEye : On", 0.5f, true, 1, 0, 0, 0, 0);
                     }
                     else
                     {
-                        _PRINT_SUBTITLE("<red> Infinite DeadEye : Off", 0.5f, true, 0, 0, 0, 0, 0);
+                        _PRINT_SUBTITLE("<red> Infinite DeadEye : Off", 0.5f, true, 1, 0, 0, 0, 0);
                     }
                 }
                 if (DeadEye)
@@ -145,12 +147,12 @@ void Application::Initialize(HMODULE _Module)
                     if (timeacce)
                     {
                         SET_TIME_ACCELERATION(5000.0f);
-                        _PRINT_SUBTITLE("Time Acceleration: On", 0.5f, true, 0, 0, 0, 0, 0);
+                        _PRINT_SUBTITLE("Time Acceleration: On", 0.5f, true, 1, 0, 0, 0, 0);
                     }
                     else
                     {
                         SET_TIME_ACCELERATION(30.0f);
-                        _PRINT_SUBTITLE("Time Acceleration: Off", 0.5f, true, 0, 0, 0, 0, 0);
+                        _PRINT_SUBTITLE("Time Acceleration: Off", 0.5f, true, 1, 0, 0, 0, 0);
                     }
                 }
                 if (timeacce)
