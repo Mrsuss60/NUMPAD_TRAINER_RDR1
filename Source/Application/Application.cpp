@@ -11,12 +11,16 @@ using namespace HEALTH;
 
 void Application::Initialize(HMODULE _Module)
 {
+	
+	//logging
+	#if 1
     AllocConsole();
     FILE* stream;
     freopen_s(&stream, "CONOUT$", "w", stdout);
-    std::cout << "*************************\n";
+    std::cout << "****************\n";
     std::cout << "The Script is Up\n";
-
+    std::cout << "****************\n";
+	#endif
 
     InputsManager::Register(); 
 
@@ -144,9 +148,7 @@ void Application::Initialize(HMODULE _Module)
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_3))
                 {
                     DeadEye = !DeadEye;
-                    /////////SET_PLAYER_DEADEYE_POINTS(playerActor, 10.0f, DeadEye);
                     SET_INFINITE_DEADEYE(playerActor, DeadEye);
-                    //SET_DEADEYE_TIMESCALE(playerActor, 0.5f);
                     if (DeadEye)
                     {
                         PRINT_OBJECTIVE_B("<green> Infinite DeadEye : On", 0.5f, true, 1, 0, 0, 0, 0);
@@ -191,7 +193,11 @@ void Application::Initialize(HMODULE _Module)
 void Application::Shutdown(HMODULE _Module)
 {
     ScriptUnregister(_Module);
+	
+	#if 1
     std::cout << "Game is Closed";
     FreeConsole();
+	#endif
+	
     InputsManager::Unregister();
 }
