@@ -8,13 +8,18 @@
 using namespace UNSORTED;
 using namespace HEALTH;
 
+
+
+
+
 void Application::Initialize(HMODULE _Module)
 {
     AllocConsole();
     FILE* stream;
     freopen_s(&stream, "CONOUT$", "w", stdout);
-    std::cout << "*************************\n";
+    std::cout << "****************\n";
     std::cout << "The Script is Up\n";
+    std::cout << "****************\n";
 
 
     InputsManager::Register(); 
@@ -29,6 +34,7 @@ void Application::Initialize(HMODULE _Module)
             bool weatherr = false;
             bool changeModel = false;
             bool LoopFire = false;
+            bool ExplodingLasso = false;
 
             // Drunk/kill Lasso variable
             bool setLassoTargetDrunk = false;
@@ -37,16 +43,18 @@ void Application::Initialize(HMODULE _Module)
 
             int FireHandle = FIRE_CREATE_HANDLE();
 
+
             PRINT_HELP_B(
                 "PRESS F4 FOR CONTROLS\n"
                 "<blue>NUMPAD 1 = INVINCIBLE\n"
                 "<blue>NUMPAD 2 = DRUNK\n"
                 "<blue>NUMPAD 3 = INFINITE DEADEYE\n"
-                "<blue>NUMPAD 5 = TIME ACCELERATION\n"
-                "<blue>NUMPAD 6 = DRUNK LASSO\n"
-                "<blue>NUMPAD 7 = KILL LASSO\n",
+                "<blue>NUMPAD 4 = TIME ACCELERATION\n"
+                "<blue>NUMPAD 7 = DRUNK LASSO\n"
+                "<blue>NUMPAD 8 = KILL LASSO\n",
                 10.0f, true, 1, 0, 0, 0, 0
             );
+
 
 
             while (true)
@@ -59,9 +67,9 @@ void Application::Initialize(HMODULE _Module)
                         "<blue>NUMPAD 1 = INVINCIBLE\n"
                         "<blue>NUMPAD 2 = DRUNK\n"
                         "<blue>NUMPAD 3 = INFINITE DEADEYE\n"
-                        "<blue>NUMPAD 5 = TIME ACCELERATION\n"
-                        "<blue>NUMPAD 6 = DRUNK LASSO\n"
-                        "<blue>NUMPAD 7 = KILL LASSO\n",
+                        "<blue>NUMPAD 4 = TIME ACCELERATION\n"
+                        "<blue>NUMPAD 7 = DRUNK LASSO\n"
+                        "<blue>NUMPAD 8 = KILL LASSO\n",
                         10.0f, true, 1, 0, 0, 0, 0
                     );
                 
@@ -92,7 +100,7 @@ void Application::Initialize(HMODULE _Module)
                 
 
                 // Drunk Lasso
-                if (Input::IsKeyJustPressed(KEY_NUMPAD_6))
+                if (Input::IsKeyJustPressed(KEY_NUMPAD_7))
                 {
                     setLassoTargetDrunk = !setLassoTargetDrunk;
                     if (setLassoTargetDrunk)
@@ -104,14 +112,11 @@ void Application::Initialize(HMODULE _Module)
                         PRINT_OBJECTIVE_B("<red>Drunk Lasso: Off!", 0.5f, true, 1, 0, 0, 0, 0);
                     }
                 }
-                if (setLassoTargetDrunk)
-                {
-                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
-                    SET_ACTOR_DRUNK(lassotarget, setLassoTargetDrunk);
-                }
+                Actor lassotarget = GET_LASSO_TARGET(playerActor);
+                SET_ACTOR_DRUNK(lassotarget, setLassoTargetDrunk);
 
                 // Kill Lasso Target
-                if (Input::IsKeyJustPressed(KEY_NUMPAD_7))
+                if (Input::IsKeyJustPressed(KEY_NUMPAD_8))
                 {
                     KillLassoTarget = !KillLassoTarget;
                     if (KillLassoTarget)
@@ -153,11 +158,11 @@ void Application::Initialize(HMODULE _Module)
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_3))
                 {
                     DeadEye = !DeadEye;
-                    /////////SET_PLAYER_DEADEYE_POINTS(playerActor, 10.0f, DeadEye);
                     SET_INFINITE_DEADEYE(playerActor, DeadEye);
-                    //SET_DEADEYE_TIMESCALE(playerActor, 0.5f);
                     if (DeadEye)
                     {
+                        SET_PLAYER_DEADEYE_MODE(playerActor, DeadEye);
+                        ADD_PLAYER_DEADEYE_POINTS(playerActor, 10, true);
                         PRINT_OBJECTIVE_B("<green> Infinite DeadEye : On", 0.5f, true, 1, 0, 0, 0, 0);
                     }
                     else
@@ -167,11 +172,12 @@ void Application::Initialize(HMODULE _Module)
                 }
                 if (DeadEye)
                 {
+                    
                     SET_INFINITE_DEADEYE(playerActor, DeadEye);
                 }
 
                 // Time Acceleration
-                if (Input::IsKeyJustPressed(KEY_NUMPAD_5))
+                if (Input::IsKeyJustPressed(KEY_NUMPAD_4))
                 {
                     timeacce = !timeacce;
                     if (timeacce)
@@ -191,16 +197,17 @@ void Application::Initialize(HMODULE _Module)
                 }
 
 
-
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Layout layout = GET_AMBIENT_LAYOUT();
+
+
                 if (Input::IsKeyJustPressed(KEY_F2))
                 {
                     Vector3 coords = GET_OBJECT_POSITION(playerActor);
                     Vector3 rot;
                     GET_OBJECT_ORIENTATION(playerActor, &rot);
-
                     const char* actorname = std::to_string(rand()).c_str();
-                    ActorModel Acspawn = ACTOR_ANIMAL_NOR_SuperGrizzlyBear02;
+                    ActorModel Acspawn = ACTOR_MPPLAYER_DLC01;
 
                     CREATE_ACTOR_IN_LAYOUT(layout, actorname, Acspawn , Vector2{ coords.x, coords.y }, coords.z, Vector2{ rot.x, rot.y }, 10.0f);
 
@@ -210,61 +217,71 @@ void Application::Initialize(HMODULE _Module)
 
                 
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_0))
-                {  
+                {
                     changeModel = !changeModel;
-                    if (changeModel)
+                   if (changeModel)
                     {
+
                         Vector3 coords = GET_OBJECT_POSITION(playerActor);
                         Vector3 rot;
                         GET_OBJECT_ORIENTATION(playerActor, &rot);
                         const char* actorname = "actor";
-                        ActorModel Acspawn = ACTOR_MPPLAYER_DLC01;
+                        ActorModel Acspawn = ACTOR_MPPLAYER01;
 
-                        _CHANGE_ACTOR_MODEL_IN_LAYOUT(layout, playerActor, actorname, Acspawn, Vector2{ coords.x, coords.y }, coords.z, Vector2{ rot.x, rot.y }, 10.0f, 80);
+                        _CHANGE_ACTOR_MODEL_IN_LAYOUT(layout, playerActor, actorname, Acspawn, Vector2{ coords.x, coords.y }, coords.z, Vector2{ rot.x, rot.y }, 0.0f, 0);
                         int playrID = Acspawn;
                         Actor camera1 = GET_PLAYER_ACTOR(playrID);
                         SET_CAMERA_FOLLOW_ACTOR(camera1);
-                    }
-                    else
-                    {
-                        Vector3 coords = GET_OBJECT_POSITION(playerActor);
-                        Vector3 rot;
-                        GET_OBJECT_ORIENTATION(playerActor, &rot);
-                        const char* actorname = "actor";
-                        ActorModel Acspawn = ACTOR_PLAYER;
+                        SET_PLAYER_CONTROL(playrID, true, 0, 0);
+                        PRINT_OBJECTIVE_B("NPC", 0.5f, true, 0, 0, 0, 0, 0);
+                   }
+#if 1
+                else
+                {
+                    Vector3 coords = GET_OBJECT_POSITION(playerActor);
+                    Vector3 rot;
+                    GET_OBJECT_ORIENTATION(playerActor, &rot);
+                    const char* actorname = "actor";
+                    ActorModel Acspawn = ACTOR_PLAYER;
 
-                        _CHANGE_ACTOR_MODEL_IN_LAYOUT(layout, playerActor, actorname, Acspawn, Vector2{ coords.x, coords.y }, coords.z, Vector2{ rot.x, rot.y }, 10.0f, 80);
-                        int playrID = Acspawn;
-                        Actor camera1 = GET_PLAYER_ACTOR(playrID);
-                        SET_CAMERA_FOLLOW_ACTOR(camera1);
-                    }
+                    _CHANGE_ACTOR_MODEL_IN_LAYOUT(layout, playerActor, actorname, Acspawn, Vector2{ coords.x, coords.y }, coords.z, Vector2{ rot.x, rot.y }, 0.0f, 0);
+                    int playrID = Acspawn;
+                    Actor camera1 = GET_PLAYER_ACTOR(playrID);
+                    SET_CAMERA_FOLLOW_ACTOR(camera1);
+                    SET_PLAYER_CONTROL(playrID, true, 0, 0);
+                }
+#endif
+
+
 
 
                 }
 
 
-
-                if (Input::IsKeyPressed(KEY_NUMPAD_PERIOD) && Input::IsKeyJustPressed(KEY_NUMPAD_8))
+                //weather
+                if (Input::IsKeyPressed(KEY_NUMPAD_PERIOD) && Input::IsKeyJustPressed(KEY_NUMPAD_ENTER))
                 {
                     weatherr = !weatherr;
                     if (weatherr)
                     {
-                        SET_WEATHER(WEATHER_STORMY, 8.0F);
+                        SET_WEATHER(WEATHER_STORMY, 0.0F);
                         SET_RAIN_AMOUNT(100.0f);
-                        SET_LIGHTNING_AMOUNT(100.0f); //  SET_LIGHTNING_AMOUNT
+                        SET_LIGHTNING_AMOUNT(1000000.0f); //  SET_LIGHTNING_AMOUNT
                         PRINT_OBJECTIVE_B("Rainy", 1.0f, true, 1, 0, 0, 0, 0);
+                        
                     }
 
                     else
                     {
-                        SET_WEATHER(WEATHER_CLEAR, 8.0f);
+                        SET_WEATHER(WEATHER_CLEAR, 0.0f);
                         SET_RAIN_AMOUNT(0.0f);
                         PRINT_OBJECTIVE_B("clear", 1.0f, true, 1, 0, 0, 0, 0);
                     }
                 }
 
 
-                bool firedamage = true;
+                //FIRE
+                bool firedamage = false;
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_PLUS))
                 {
                     LoopFire = !LoopFire;
@@ -286,12 +303,49 @@ void Application::Initialize(HMODULE _Module)
                     FIRE_SET_GROW_RATE(FireHandle, 9999.9f);
                 }
 
+                
+#if 1
+                int Zoomed = IS_PLAYER_WEAPON_ZOOMED(playerActor);
+                bool Shooting = IS_ACTOR_SHOOTING(playerActor);
+                Vector3 Excoords;
+                if (Zoomed)
+                {
+                    GET_RETICLE_TARGET_POINT(playerActor,&Excoords);
+                        if (Shooting)
+                        {
+                            _CREATE_EXPLOSION(&Excoords, "CannonballExplosion", 1, &Excoords, 1);
+                        }
+                }
+#endif
+
+
+
+
+                if (Input::IsKeyJustPressed(KEY_F1))
+                {
+                    ExplodingLasso = !ExplodingLasso;
+                    if (ExplodingLasso)
+                    {
+
+                        PRINT_OBJECTIVE_B("Boom lasso!: On", 0.5f, true, 0, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        PRINT_OBJECTIVE_B("Boom lasso!: Off", 0.5f, true, 0, 0, 0, 0, 0);
+                    }
+                }
+                if (ExplodingLasso)
+                {
+                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
+                    Vector3 coords = GET_OBJECT_POSITION(lassotarget);
+                    _CREATE_EXPLOSION(&coords, "CannonballExplosion", 1, &coords, 1);
+                }
 
 
 
 
 
-                WAIT(0);
+               WAIT(0);
 
             }
         });
@@ -305,4 +359,3 @@ void Application::Shutdown(HMODULE _Module)
     FreeConsole();
     InputsManager::Unregister();
 }
-
