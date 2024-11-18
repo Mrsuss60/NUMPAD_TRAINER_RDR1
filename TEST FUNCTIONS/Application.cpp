@@ -195,6 +195,26 @@ void Application::Initialize(HMODULE _Module)
                 {
                     SET_TIME_ACCELERATION(5000.0f);
                 }
+				
+				                if (Input::IsKeyJustPressed(KEY_F1))
+                {
+                    ExplodingLasso = !ExplodingLasso;
+                    if (ExplodingLasso)
+                    {
+
+                        PRINT_OBJECTIVE_B("Boom lasso!: On", 0.5f, true, 0, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        PRINT_OBJECTIVE_B("Boom lasso!: Off", 0.5f, true, 0, 0, 0, 0, 0);
+                    }
+                }
+                if (ExplodingLasso)
+                {
+                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
+                    Vector3 coords = GET_OBJECT_POSITION(lassotarget);
+                    _CREATE_EXPLOSION(&coords, "CannonballExplosion", 1, &coords, 1);
+                }
 
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -340,25 +360,7 @@ void Application::Initialize(HMODULE _Module)
 #endif
 
 
-                if (Input::IsKeyJustPressed(KEY_F1))
-                {
-                    ExplodingLasso = !ExplodingLasso;
-                    if (ExplodingLasso)
-                    {
 
-                        PRINT_OBJECTIVE_B("Boom lasso!: On", 0.5f, true, 0, 0, 0, 0, 0);
-                    }
-                    else
-                    {
-                        PRINT_OBJECTIVE_B("Boom lasso!: Off", 0.5f, true, 0, 0, 0, 0, 0);
-                    }
-                }
-                if (ExplodingLasso)
-                {
-                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
-                    Vector3 coords = GET_OBJECT_POSITION(lassotarget);
-                    _CREATE_EXPLOSION(&coords, "CannonballExplosion", 1, &coords, 1);
-                }
 
 
 
