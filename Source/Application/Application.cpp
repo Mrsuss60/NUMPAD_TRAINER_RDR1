@@ -101,7 +101,7 @@ void Application::Initialize(HMODULE _Module)
                     }
                     else
                     {
-                        PRINT_OBJECTIVE_B("GUN TELEPORT: Off", 1.0f, true, 0, 0, 0, 0, 0);
+                        PRINT_OBJECTIVE_B("TELEPORT GUN: Off", 1.0f, true, 0, 0, 0, 0, 0);
                     }
 
                 }
