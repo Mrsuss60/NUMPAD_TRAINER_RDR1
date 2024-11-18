@@ -1,7 +1,8 @@
 **NUMPAD_TRAINER**
-- invincibility
-- set player drunk
-- set NPC drunk by lasso
-- kill NPC by lasso
-- time acceleration
-- infinite deadeye 
+- Invincibility
+- Set player drunk
+- Set NPC drunk by lasso
+- Kill NPC by lasso
+- Boom Lasso
+- Time acceleration
+- Infinite deadeye 
