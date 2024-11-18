@@ -37,9 +37,9 @@ void Application::Initialize(HMODULE _Module)
                 "<blue>NUMPAD 1 = INVINCIBLE\n"
                 "<blue>NUMPAD 2 = DRUNK\n"
                 "<blue>NUMPAD 3 = INFINITE DEADEYE\n"
-                "<blue>NUMPAD 5 = TIME ACCELERATION\n"
-                "<blue>NUMPAD 6 = DRUNK LASSO\n"
-                "<blue>NUMPAD 7 = KILL LASSO\n",
+                "<blue>NUMPAD 4 = TIME ACCELERATION\n"
+                "<blue>NUMPAD 7 = DRUNK LASSO\n"
+                "<blue>NUMPAD 8 = KILL LASSO\n",
                 10.0f, true, 1, 0, 0, 0, 0
             );
 
@@ -53,9 +53,9 @@ void Application::Initialize(HMODULE _Module)
                         "<blue>NUMPAD 1 = INVINCIBLE\n"
                         "<blue>NUMPAD 2 = DRUNK\n"
                         "<blue>NUMPAD 3 = INFINITE DEADEYE\n"
-                        "<blue>NUMPAD 5 = TIME ACCELERATION\n"
-                        "<blue>NUMPAD 6 = DRUNK LASSO\n"
-                        "<blue>NUMPAD 7 = KILL LASSO\n",
+                        "<blue>NUMPAD 4 = TIME ACCELERATION\n"
+                        "<blue>NUMPAD 7 = DRUNK LASSO\n"
+                        "<blue>NUMPAD 8 = KILL LASSO\n",
                         10.0f, true, 1, 0, 0, 0, 0
                     );
                 
@@ -86,7 +86,7 @@ void Application::Initialize(HMODULE _Module)
                 
 
                 // Drunk Lasso
-                if (Input::IsKeyJustPressed(KEY_NUMPAD_6))
+                if (Input::IsKeyJustPressed(KEY_NUMPAD_7))
                 {
                     setLassoTargetDrunk = !setLassoTargetDrunk;
                     if (setLassoTargetDrunk)
@@ -98,14 +98,11 @@ void Application::Initialize(HMODULE _Module)
                         PRINT_OBJECTIVE_B("<red>Drunk Lasso: Off!", 0.5f, true, 1, 0, 0, 0, 0);
                     }
                 }
-                if (setLassoTargetDrunk)
-                {
-                    Actor lassotarget = GET_LASSO_TARGET(playerActor);
-                    SET_ACTOR_DRUNK(lassotarget, setLassoTargetDrunk);
-                }
+                Actor lassotarget = GET_LASSO_TARGET(playerActor);
+                SET_ACTOR_DRUNK(lassotarget, setLassoTargetDrunk);
 
                 // Kill Lasso Target
-                if (Input::IsKeyJustPressed(KEY_NUMPAD_7))
+                if (Input::IsKeyJustPressed(KEY_NUMPAD_8))
                 {
                     KillLassoTarget = !KillLassoTarget;
                     if (KillLassoTarget)
@@ -165,7 +162,7 @@ void Application::Initialize(HMODULE _Module)
                 }
 
                 // Time Acceleration
-                if (Input::IsKeyJustPressed(KEY_NUMPAD_5))
+                if (Input::IsKeyJustPressed(KEY_NUMPAD_4))
                 {
                     timeacce = !timeacce;
                     if (timeacce)
