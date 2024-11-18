@@ -31,7 +31,8 @@ void Application::Initialize(HMODULE _Module)
             bool Drunk = false;
             bool DeadEye = false;
             bool timeacce = false;
-			bool ExplodingLasso = false;
+	    bool ExplodingLasso = false;
+	    bool TeleGun = false;	
 
             // Drunk/kill Lasso variable
             bool setLassoTargetDrunk = false;
@@ -88,7 +89,35 @@ void Application::Initialize(HMODULE _Module)
                 {
                     SET_ACTOR_INVULNERABILITY(playerActor, true);
                 }
-                
+
+	//////////////////////////////
+		if (Input::IsKeyJustPressed(KEY_F10))
+                {
+                    
+                    TeleGun = !TeleGun;
+                    if (TeleGun)
+                    {
+                        PRINT_OBJECTIVE_B("TELEPORT GUN: On", 1.0f, true, 0, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        PRINT_OBJECTIVE_B("GUN TELEPORT: Off", 1.0f, true, 0, 0, 0, 0, 0);
+                    }
+
+                }
+                if (TeleGun)
+                {
+                    Vector3 Excoords;
+                    if (IS_PLAYER_WEAPON_ZOOMED(playerActor))
+                    {
+                        GET_RETICLE_TARGET_POINT(playerActor, &Excoords);
+                        if (IS_ACTOR_SHOOTING(playerActor) && STREAMING_IS_WORLD_LOADED())
+                        {
+                            TELEPORT_ACTOR(playerActor, &Excoords, false, false, false);
+                        }
+                    }
+                }
+	//////////////////////////////
 
                 // Drunk Lasso
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_7))
