@@ -126,8 +126,8 @@ void Application::Initialize(HMODULE _Module)
                 }
 				
 				
-			// exploding lasso
-				if (Input::IsKeyJustPressed(KEY_F1))
+		// exploding lasso
+		if (Input::IsKeyJustPressed(KEY_F1))
                 {
                     ExplodingLasso = !ExplodingLasso;
                     if (ExplodingLasso)
