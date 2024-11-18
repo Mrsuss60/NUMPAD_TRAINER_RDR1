@@ -304,7 +304,7 @@ void Application::Initialize(HMODULE _Module)
                 }
 
                 
-#if 1
+#if 0
                 int Zoomed = IS_PLAYER_WEAPON_ZOOMED(playerActor);
                 bool Shooting = IS_ACTOR_SHOOTING(playerActor);
                 Vector3 Excoords;
@@ -319,6 +319,25 @@ void Application::Initialize(HMODULE _Module)
 #endif
 
 
+#if 1
+                bool WZoomed = IS_PLAYER_WEAPON_ZOOMED(playerActor);
+                bool AShooting = IS_ACTOR_SHOOTING(playerActor);
+                Vector3 Excoords;
+                float heading = GET_HEADING(playerActor);
+                int Height = GET_ACTOR_HEIGHT(playerActor);
+
+                if (WZoomed)
+                {
+                    GET_RETICLE_TARGET_POINT(playerActor,&Excoords);
+                    Excoords.z -= Height;
+                        if (AShooting)
+                        {
+                            //_CREATE_EXPLOSION(&Excoords, "CannonballExplosion", 10, &Excoords, 10);
+                            
+                            TELEPORT_ACTOR_WITH_HEADING(playerActor, &Excoords, heading, false, false, false);
+                        }
+                }
+#endif
 
 
                 if (Input::IsKeyJustPressed(KEY_F1))
