@@ -5,4 +5,5 @@
 - Kill NPC by lasso
 - Boom Lasso
 - Time acceleration
-- Infinite deadeye 
+- Infinite deadeye
+- TELEPORT GUN
