@@ -35,6 +35,7 @@ void Application::Initialize(HMODULE _Module)
             bool changeModel = false;
             bool LoopFire = false;
             bool ExplodingLasso = false;
+	    bool TeleGun = false;
 
             // Drunk/kill Lasso variable
             bool setLassoTargetDrunk = false;
@@ -345,22 +346,31 @@ void Application::Initialize(HMODULE _Module)
 
 
 #if 1
-                bool WZoomed = IS_PLAYER_WEAPON_ZOOMED(playerActor);
-                bool AShooting = IS_ACTOR_SHOOTING(playerActor);
-                Vector3 Excoords;
-                float heading = GET_HEADING(playerActor);
-                int Height = GET_ACTOR_HEIGHT(playerActor);
-
-                if (WZoomed)
+                if (Input::IsKeyJustPressed(KEY_F10))
                 {
-                    GET_RETICLE_TARGET_POINT(playerActor,&Excoords);
-                    Excoords.z -= Height;
-                        if (AShooting)
+
+                    TeleGun = !TeleGun;
+                    if (TeleGun)
+                    {
+                        PRINT_OBJECTIVE_B("TELEPORT GUN: On", 1.0f, true, 0, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        PRINT_OBJECTIVE_B("TELEPORT GUN: Off", 1.0f, true, 0, 0, 0, 0, 0);
+                    }
+
+                }
+                if (TeleGun)
+                {
+                    Vector3 Excoords;
+                    if (IS_PLAYER_WEAPON_ZOOMED(playerActor))
+                    {
+                        GET_RETICLE_TARGET_POINT(playerActor, &Excoords);
+                        if (IS_ACTOR_SHOOTING(playerActor) && STREAMING_IS_WORLD_LOADED())
                         {
-                            //_CREATE_EXPLOSION(&Excoords, "CannonballExplosion", 10, &Excoords, 10);
-                            
-                            TELEPORT_ACTOR_WITH_HEADING(playerActor, &Excoords, heading, false, false, false);
+                            TELEPORT_ACTOR(playerActor, &Excoords, false, false, false);
                         }
+                    }
                 }
 #endif
 
