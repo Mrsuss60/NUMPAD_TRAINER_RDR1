@@ -31,8 +31,12 @@ void Application::Initialize(HMODULE _Module)
             bool Drunk = false;
             bool DeadEye = false;
             bool timeacce = false;
-	    bool ExplodingLasso = false;
-	    bool TeleGun = false;	
+	        bool ExplodingLasso = false;
+	        bool TeleGun = false;	
+
+            // gravity gun
+            bool gravityGun = false;
+            Actor targetedPed = -1;
 
             // Drunk/kill Lasso variable
             bool setLassoTargetDrunk = false;
@@ -110,7 +114,7 @@ void Application::Initialize(HMODULE _Module)
                     Vector3 Excoords;
                     if (IS_PLAYER_WEAPON_ZOOMED(playerActor))
                     {
-                        GET_RETICLE_TARGET_POINT(playerActor, &Excoords);
+                        // GET_RETICLE_TARGET_POINT(playerActor, &Excoords);
                         if (IS_ACTOR_SHOOTING(playerActor) && STREAMING_IS_WORLD_LOADED())
                         {
                             TELEPORT_ACTOR(playerActor, &Excoords, false, false, false);
@@ -233,6 +237,45 @@ void Application::Initialize(HMODULE _Module)
                 if (timeacce)
                 {
                     SET_TIME_ACCELERATION(5000.0f);
+                }
+
+                // Gravity Gun
+                if (Input::IsKeyJustPressed(KEY_0))
+                {
+                    gravityGun = !gravityGun;
+                    targetedPed = -1;
+                    HUD_CLEAR_OBJECTIVE_QUEUE();
+                    if (gravityGun)
+                    {
+                        PRINT_OBJECTIVE_B("<green>Gravity Gun: On", 0.5f, true, 1, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        PRINT_OBJECTIVE_B("<red>Gravity Gun: On", 0.5f, true, 1, 0, 0, 0, 0);
+                    }
+                }
+                if (gravityGun)
+                {                    
+                    Actor curTargeted = GET_ACTOR_UNDER_RETICLE(playerActor, true);
+
+                    if (curTargeted && IS_ACTOR_SHOOTING(playerActor))
+                    {
+                        SET_ACTOR_HEALTH(curTargeted, 100);
+                        targetedPed = curTargeted;
+                    }
+                    else if (IS_PLAYER_WEAPON_ZOOMED(playerActor) && targetedPed)
+                    {
+                        Vector3 coords;
+                        NATIVEDB::GET_RETICLE_TARGET_POINT(playerActor, &coords);
+                        Vector3 playerCoords = GET_POSITION(playerActor);
+                        std::cout << VECTOR_TO_STRING(&coords) << "\n";
+                        std::cout << VECTOR_TO_STRING(&playerCoords) << "\n\n\n";
+                        TELEPORT_ACTOR(targetedPed, &coords, false, false, false);
+                    }
+                    else if (!IS_PLAYER_WEAPON_ZOOMED(playerActor))
+                    {
+                        targetedPed = -1;
+                    }
                 }
 
                 WAIT(0);
