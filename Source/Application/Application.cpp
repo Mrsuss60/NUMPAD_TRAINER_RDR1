@@ -56,7 +56,8 @@ void Application::Initialize(HMODULE _Module)
                 "<blue>NUMPAD 3 = INFINITE DEADEYE\n"
                 "<blue>NUMPAD 4 = TIME ACCELERATION\n"
                 "<blue>NUMPAD 7 = DRUNK LASSO\n"
-                "<blue>NUMPAD 8 = KILL LASSO\n",
+                "<blue>NUMPAD 8 = KILL LASSO\n"
+		"<blue>NUMPAD 9 = BOOM LASSO\n",
                 10.0f, true, 1, 0, 0, 0, 0
             );
 
@@ -72,7 +73,8 @@ void Application::Initialize(HMODULE _Module)
                         "<blue>NUMPAD 3 = INFINITE DEADEYE\n"
                         "<blue>NUMPAD 4 = TIME ACCELERATION\n"
                         "<blue>NUMPAD 7 = DRUNK LASSO\n"
-                        "<blue>NUMPAD 8 = KILL LASSO\n",
+                        "<blue>NUMPAD 8 = KILL LASSO\n"
+			"<blue>NUMPAD 9 = BOOM LASSO\n",
                         10.0f, true, 1, 0, 0, 0, 0
                     );
                 
@@ -172,7 +174,7 @@ void Application::Initialize(HMODULE _Module)
 	//////////////////////////////			
 				
 		// exploding lasso
-		if (Input::IsKeyJustPressed(KEY_F1))
+		if (Input::IsKeyJustPressed(KEY_NUMPAD_9))
                 {
                     ExplodingLasso = !ExplodingLasso;
                     if (ExplodingLasso)
