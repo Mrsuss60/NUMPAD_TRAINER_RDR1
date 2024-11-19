@@ -24,7 +24,10 @@ using FireHandle = int;
 using Hash = uint32_t;
 using Time = float;
 
-
+namespace NATIVEDB
+{
+	static int GET_RETICLE_TARGET_POINT(int p0, Vector3* coords) { return Invoke<0x8AE7281E, int>(p0, coords); } // 0x8AE7281E
+}
 
 namespace UNSORTED
 {
@@ -696,7 +699,7 @@ namespace UNSORTED
 	static int AI_HAS_PLAYER_PROJECTILE_IMPACTED_WITHIN(int pram0, int pram1) { return Invoke<0x059F64B8, int>(pram0, pram1); }
 	static int AI_HAS_PLAYER_PROJECTILE_NEAR_MISSED_WITHIN(int pram0, int pram1, int pram2) { return Invoke<0xD8574E09, int>(pram0, pram1, pram2); }
 	static int UNK_0xA5A24484(int pram0) { return Invoke<0xA5A24484, int>(pram0); }
-	static int UNK_0x86BAAC6C(int pram0, int pram1) { return Invoke<0x86BAAC6C, int>(pram0, pram1); }
+	static int GET_ACTOR_UNDER_RETICLE(int pram0, int pram1) { return Invoke<0x86BAAC6C, int>(pram0, pram1); }
 	static int IS_PLAYER_WEAPON_ZOOMED(int pram0) { return Invoke<0x0A842786, int>(pram0); }
 	static int MEMORY_GET_IS_VISIBLE(int pram0, int pram1) { return Invoke<0x45CE40FD, int>(pram0, pram1); }
 	static int UNK_0x02365961(int pram0) { return Invoke<0x02365961, int>(pram0); }
