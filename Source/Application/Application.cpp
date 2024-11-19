@@ -13,7 +13,7 @@ void Application::Initialize(HMODULE _Module)
 {
 	
 	//logging
-	#if 1
+	#if 0
     AllocConsole();
     FILE* stream;
     freopen_s(&stream, "CONOUT$", "w", stdout);
@@ -27,21 +27,28 @@ void Application::Initialize(HMODULE _Module)
     ScriptRegister(_Module, []
 
         {
+	   //player
             bool Invincible = false;
             bool Drunk = false;
             bool DeadEye = false;
+
+	   //time
             bool timeacce = false;
-	        bool ExplodingLasso = false;
-	        bool TeleGun = false;	
+    	   
+	   //teleport gun
+	    bool TeleGun = false;	
 
             // gravity gun
             bool gravityGun = false;
             Actor targetedPed = -1;
 
-            // Drunk/kill Lasso variable
+            // Boom/Drunk/kill Lasso variable
             bool setLassoTargetDrunk = false;
             bool KillLassoTarget = false;
+	    bool ExplodingLasso = false;
 
+
+	   	
             PRINT_HELP_B(
                 "PRESS F4 FOR CONTROLS\n"
                 "<blue>NUMPAD 1 = INVINCIBLE\n"
@@ -95,6 +102,7 @@ void Application::Initialize(HMODULE _Module)
                 }
 
 	//////////////////////////////
+		
 		if (Input::IsKeyJustPressed(KEY_F10))
                 {
                     
@@ -121,6 +129,7 @@ void Application::Initialize(HMODULE _Module)
                         }
                     }
                 }
+		
 	//////////////////////////////
 
                 // Drunk Lasso
@@ -138,6 +147,8 @@ void Application::Initialize(HMODULE _Module)
                 }
                 Actor lassotarget = GET_LASSO_TARGET(playerActor);
                 SET_ACTOR_DRUNK(lassotarget, setLassoTargetDrunk);
+
+	//////////////////////////////	    
 
                 // Kill Lasso Target
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_8))
@@ -157,7 +168,8 @@ void Application::Initialize(HMODULE _Module)
                     Actor lassotarget = GET_LASSO_TARGET(playerActor);
                     KILL_ACTOR(lassotarget);
                 }
-				
+		    
+	//////////////////////////////			
 				
 		// exploding lasso
 		if (Input::IsKeyJustPressed(KEY_F1))
@@ -180,8 +192,9 @@ void Application::Initialize(HMODULE _Module)
                     _CREATE_EXPLOSION(&coords, "CannonballExplosion", 1, &coords, 1);
                 }
 
-
-                // Drunk Player
+	//////////////////////////////
+                
+		// Drunk Player
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_2))
                 {
                     if (IS_ACTOR_PLAYER(playerActor))
@@ -198,7 +211,8 @@ void Application::Initialize(HMODULE _Module)
                         }
                     }
                 }
-
+		    
+	//////////////////////////////
 
                 // Deadeye
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_3))
@@ -218,6 +232,8 @@ void Application::Initialize(HMODULE _Module)
                 {
                     SET_INFINITE_DEADEYE(playerActor, DeadEye);
                 }
+		    
+        //////////////////////////////
 
                 // Time Acceleration
                 if (Input::IsKeyJustPressed(KEY_NUMPAD_4))
@@ -238,8 +254,10 @@ void Application::Initialize(HMODULE _Module)
                 {
                     SET_TIME_ACCELERATION(5000.0f);
                 }
-
-                // Gravity Gun
+		    
+	//////////////////////////////
+                
+		// Gravity Gun
                 if (Input::IsKeyJustPressed(KEY_0))
                 {
                     gravityGun = !gravityGun;
@@ -277,7 +295,10 @@ void Application::Initialize(HMODULE _Module)
                         targetedPed = -1;
                     }
                 }
+	//////////////////////////////
 
+
+		    
                 WAIT(0);
 
             }
@@ -289,7 +310,7 @@ void Application::Shutdown(HMODULE _Module)
 {
     ScriptUnregister(_Module);
 	
-	#if 1
+	#if 0
     std::cout << "Game is Closed";
     FreeConsole();
 	#endif
