@@ -6,4 +6,5 @@
 - Boom Lasso
 - Time acceleration
 - Infinite deadeye
-- TELEPORT GUN
+- Teleport Gun
+- Gravity Gun
