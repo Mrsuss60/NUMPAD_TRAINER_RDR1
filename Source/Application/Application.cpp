@@ -260,7 +260,7 @@ void Application::Initialize(HMODULE _Module)
 
                     if (curTargeted && IS_ACTOR_SHOOTING(playerActor))
                     {
-                        SET_ACTOR_HEALTH(curTargeted, 100);
+                        SET_ACTOR_HEALTH(curTargeted, 1000);
                         targetedPed = curTargeted;
                     }
                     else if (IS_PLAYER_WEAPON_ZOOMED(playerActor) && targetedPed)
@@ -268,8 +268,13 @@ void Application::Initialize(HMODULE _Module)
                         Vector3 coords;
                         NATIVEDB::GET_RETICLE_TARGET_POINT(playerActor, &coords);
                         Vector3 playerCoords = GET_POSITION(playerActor);
-                        std::cout << VECTOR_TO_STRING(&coords) << "\n";
-                        std::cout << VECTOR_TO_STRING(&playerCoords) << "\n\n\n";
+                        float distance = Vector3::Distance(playerCoords, coords);
+                        Vector3 direction = coords - playerCoords;
+                        if (distance > 15)
+                        {
+                            direction = direction / distance;
+                            coords = playerCoords + (direction * 15.0f);
+                        }
                         TELEPORT_ACTOR(targetedPed, &coords, false, false, false);
                     }
                     else if (!IS_PLAYER_WEAPON_ZOOMED(playerActor))
